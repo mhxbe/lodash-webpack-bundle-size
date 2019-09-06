@@ -27,8 +27,22 @@ A combination of `babel-plugin-lodash` and `lodash-webpack-plugin` is used in th
 ## Results
 
 |Config|File|Size|
-|---|---|---|
+|---|---|---:|
 |babel and webpack plugin|[dist/babel-webpack.js](./dist/babel-webpack.js)|1.93 KB|
-|babel plugin|[dist/babel.js](./dist/babel.js)|21.9 KB|
-|webpack plugin|[dist/webpack.js](./dist/webpack.js)|71.5 KB|
-|non optimized|[dist/non-optimized.js](./dist/non-optimized.js)|79.6 KB|
+|babel plugin|[dist/babel.js](./dist/babel.js)|21.90 KB|
+|webpack plugin|[dist/webpack.js](./dist/webpack.js)|71.50 KB|
+|non optimized|[dist/non-optimized.js](./dist/non-optimized.js)|79.60 KB|
+
+### Warning
+The configuration where both babel and webpack plugins are used, result in a staggering small bundle size. The reason why is because a lot of behind-the-scene features of lodash are removed by the `lodash-webpack-plugin`, which explains the big savings.
+
+Here's a full list of features that are disabled by `lodash-webpack-plugin`:
+[github.com/lodash/lodash-webpack-plugin#feature-sets](https://github.com/lodash/lodash-webpack-plugin#feature-sets).
+
+You can choose to opt-in to certain features like this:
+```
+new LodashModuleReplacementPlugin({
+  collections: true,
+  paths: true
+});
+```
